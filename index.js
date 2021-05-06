@@ -944,7 +944,10 @@ class MyForm extends React.Component {
   }
   handleSubmit(event) {
     // Change code below this line
-    
+    event.preventDefault();
+    this.setState({
+      submit: this.state.input
+    })
     // Change code above this line
   }
   render() {
@@ -952,19 +955,19 @@ class MyForm extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           {/* Change code below this line */}
-
+          <input type="text" value={this.state.input} onChange={this.handleChange}/>
           {/* Change code above this line */}
           <button type='submit'>Submit!</button>
         </form>
         {/* Change code below this line */}
-
+        <h1>{this.state.submit}</h1>
         {/* Change code above this line */}
       </div>
     );
   }
 }
 
-// // 30 Pass State as Props to Child ComponentsPassed
+// // 30 Pass State as Props to Child Components
 // You saw a lot of examples that passed props to child JSX elements and child React components in previous challenges. You may be wondering where those props come from. A common pattern is to have a stateful component containing the state important to your app, that then renders child components. You want these components to have access to some pieces of that state, which are passed in as props.
 
 // For example, maybe you have an App component that renders a Navbar, among other components. In your App, you have state that contains a lot of user information, but the Navbar only needs access to the user's username so it can display it. You pass that piece of state to the Navbar component as a prop.
@@ -983,7 +986,7 @@ class MyApp extends React.Component {
     return (
        <div>
          {/* Change code below this line */}
-         <Navbar />
+         <Navbar name={this.state.name}/>
          {/* Change code above this line */}
        </div>
     );
@@ -998,7 +1001,7 @@ class Navbar extends React.Component {
     return (
     <div>
       {/* Change code below this line */}
-      <h1>Hello, my name is: </h1>
+      <h1>Hello, my name is: {this.props.name}</h1>
       {/* Change code above this line */}
     </div>
     );
@@ -1030,7 +1033,8 @@ class MyApp extends React.Component {
     return (
        <div>
         { /* Change code below this line */ }
-
+        <GetInput input={this.state.inputValue} handleChange={this.handleChange}/>
+        <RenderInput input={this.state.inputValue}/>
         { /* Change code above this line */ }
        </div>
     );
@@ -1080,7 +1084,7 @@ class MyComponent extends React.Component {
   }
   componentWillMount() {
     // Change code below this line
-
+    console.log("Component being mounted");
     // Change code above this line
   }
   render() {
@@ -1112,7 +1116,7 @@ class MyComponent extends React.Component {
     return (
       <div>
         {/* Change code below this line */}
-        <h1>Active Users: </h1>
+        <h1>Active Users:{this.state.activeUsers} </h1>
         {/* Change code above this line */}
       </div>
     );
@@ -1139,9 +1143,10 @@ class MyComponent extends React.Component {
   }
   // Change code below this line
   componentDidMount() {
-
+    document.addEventListener('keydown', this.handleKeyPress);
   }
   componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
 
   }
   // Change code above this line
@@ -1177,7 +1182,9 @@ class OnlyEvens extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     console.log('Should I update?');
     // Change code below this line
-    return true;
+    if(nextProps.value % 2 === 0){
+      return true;
+    }
     // Change code above this line
   }
   componentDidUpdate() {

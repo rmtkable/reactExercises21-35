@@ -599,7 +599,7 @@ Camper.propTypes = { name: PropTypes.string.isRequired};
 // 21 Create a Stateful Component
 // One of the most important topics in React is state. State consists of any data your application needs to know about, that can change over time. You want your apps to respond to state changes and present an updated UI when necessary. React offers a nice solution for the state management of modern web applications.
 
-// You create state in a React component by declaring a state property on the component class in its constructor. This initializes the component with state when it is created. The state property must be set to a JavaScript object. Declaring it looks like this:
+// // You create state in a React component by declaring a state property on the component class in its constructor. This initializes the component with state when it is created. The state property must be set to a JavaScript object. Declaring it looks like this:
 
 // this.state = {
 
@@ -611,7 +611,9 @@ class StatefulComponent extends React.Component {
   constructor(props) {
     super(props);
     // Only change code below this line
-
+    this.state = {
+      name: "Austin"
+    }
     // Only change code above this line
   }
   render() {
@@ -647,7 +649,7 @@ class MyComponent extends React.Component {
     return (
       <div>
         { /* Change code below this line */ }
-
+        <h1>{this.state.name}</h1>
         { /* Change code above this line */ }
       </div>
     );
@@ -670,12 +672,12 @@ class MyComponent extends React.Component {
   }
   render() {
     // Change code below this line
-
+    const name = this.state.name
     // Change code above this line
     return (
       <div>
         { /* Change code below this line */ }
-
+        <h1>{name}</h1>
         { /* Change code above this line */ }
       </div>
     );
@@ -685,9 +687,9 @@ class MyComponent extends React.Component {
 // // 24 Set State with this.setState
 // The previous challenges covered component state and how to initialize state in the constructor. There is also a way to change the component's state. React provides a method for updating component state called setState. You call the setState method within your component class like so: this.setState(), passing in an object with key-value pairs. The keys are your state properties and the values are the updated state data. For instance, if we were storing a username in state and wanted to update it, it would look like this:
 
-// this.setState({
-//   username: 'Lewis'
-// });
+this.setState({
+  username: 'Lewis'
+});
 // React expects you to never modify state directly, instead always use this.setState() when state changes occur. Also, you should note that React may batch multiple state updates in order to improve performance. What this means is that state updates through the setState method can be asynchronous. There is an alternative syntax for the setState method which provides a way around this problem. This is rarely needed but it's good to keep it in mind! Please consult the React documentation for further details.
 
 // There is a button element in the code editor which has an onClick() handler. This handler is triggered when the button receives a click event in the browser, and runs the handleClick method defined on MyComponent. Within the handleClick method, update the component state using this.setState(). Set the name property in state to equal the string React Rocks!.
@@ -703,7 +705,9 @@ class MyComponent extends React.Component {
   }
   handleClick() {
     // Change code below this line
-
+    this.setState({
+      name: "React Rocks!"
+    });
     // Change code above this line
   }
   render() {
@@ -715,7 +719,7 @@ class MyComponent extends React.Component {
     );
   }
 };
-
+// Before you click you should see Initial State inside the console, Once you click it will change to React Rocks!
 
 
 // 25 Bind 'this' to a Class Method 
@@ -738,7 +742,7 @@ class MyComponent extends React.Component {
       text: "Hello"
     };
     // Change code below this line
-
+    this.handleClick = this.handleClick.bind(this);
     // Change code above this line
   }
   handleClick() {
@@ -750,7 +754,7 @@ class MyComponent extends React.Component {
     return (
       <div>
         { /* Change code below this line */ }
-        <button>Click Me</button>
+        <button onClick={this.handleClick}>Click Me</button>
         { /* Change code above this line */ }
         <h1>{this.state.text}</h1>
       </div>
@@ -760,21 +764,21 @@ class MyComponent extends React.Component {
 
 
 // // 26 Use State to Toggle an Element
-// Sometimes you might need to know the previous state when updating the state. However, state updates may be asynchronous - this means React may batch multiple setState() calls into a single update. This means you can't rely on the previous value of this.state or this.props when calculating the next value. So, you should not use code like this:
+// Sometimes you might need to know the previous state when updating the state. However, state updates may be asynchronous - this means React may batch multiple setState() calls into a single update. This means you can't rely on the previous value of this.state or this.props when calculating the next value. So, you should NOT use code like this:
 
-// this.setState({
-//   counter: this.state.counter + this.props.increment
-// });
+this.setState({
+  counter: this.state.counter + this.props.increment
+});
 // Instead, you should pass setState a function that allows you to access state and props. Using a function with setState guarantees you are working with the most current values of state and props. This means that the above should be rewritten as:
-
-// this.setState((state, props) => ({
-//   counter: state.counter + props.increment
-// }));
+// State + Props
+this.setState((state, props) => ({
+  counter: state.counter + props.increment
+}));
 // You can also use a form without props if you need only the state:
-
-// this.setState(state => ({
-//   counter: state.counter + 1
-// }));
+// Only State
+this.setState(state => ({
+  counter: state.counter + 1
+}));
 // Note that you have to wrap the object literal in parentheses, otherwise JavaScript thinks it's a block of code.
 
 // MyComponent has a visibility property which is initialized to false. The render method returns one view if the value of visibility is true, and a different view if it is false.
@@ -792,11 +796,20 @@ class MyComponent extends React.Component {
       visibility: false
     };
     // Change code below this line
-
+    this.toggleVisibility = this.toggleVisibility.bind(this)
     // Change code above this line
   }
   // Change code below this line
-
+toggleVisibility() {
+  this.setState(state => {
+    // handles the toggle 
+    if (state.visibility === true){
+      return { visibility: false};
+    } else{
+      return {visibility: true};
+    }
+  })
+}
   // Change code above this line
   render() {
     if (this.state.visibility) {
@@ -829,11 +842,28 @@ class Counter extends React.Component {
       count: 0
     };
     // Change code below this line
-
+    this.increment = this.increment.bind(this);
+    this.decrement = this.decrement.bind(this);
+    this.reset     = this.reset.bind(this);
     // Change code above this line
   }
   // Change code below this line
-
+reset(){
+  this.setState({
+    count: 0
+  });
+}
+increment(){
+  this.setState(
+    state => ({
+      count: state.count + 1
+    }));
+}
+decrement(){
+  this.setState(state => ({
+    count: state.count - 1 
+  }));
+}
   // Change code above this line
   render() {
     return (
@@ -866,17 +896,19 @@ class ControlledInput extends React.Component {
       input: ''
     };
     // Change code below this line
-
+    this.handleChange = this.handleChange.bind(this);
     // Change code above this line
   }
   // Change code below this line
-
+handleChange(event){
+  this.setState({input: event.target.value });
+}
   // Change code above this line
   render() {
     return (
       <div>
         { /* Change code below this line */}
-
+        <input type="text" value={this.state.input} onChange={this.handleChange.bind(this)}/>
         { /* Change code above this line */}
         <h4>Controlled Input:</h4>
         <p>{this.state.input}</p>

@@ -611,9 +611,7 @@ class StatefulComponent extends React.Component {
   constructor(props) {
     super(props);
     // Only change code below this line
-    this.state = {
-      name: "Austin"
-    }
+
     // Only change code above this line
   }
   render() {
@@ -649,7 +647,7 @@ class MyComponent extends React.Component {
     return (
       <div>
         { /* Change code below this line */ }
-        <h1>{this.state.name}</h1>
+
         { /* Change code above this line */ }
       </div>
     );
@@ -672,12 +670,12 @@ class MyComponent extends React.Component {
   }
   render() {
     // Change code below this line
-    const name = this.state.name
+    
     // Change code above this line
     return (
       <div>
         { /* Change code below this line */ }
-        <h1>{name}</h1>
+        
         { /* Change code above this line */ }
       </div>
     );
@@ -705,9 +703,7 @@ class MyComponent extends React.Component {
   }
   handleClick() {
     // Change code below this line
-    this.setState({
-      name: "React Rocks!"
-    });
+
     // Change code above this line
   }
   render() {
@@ -742,7 +738,7 @@ class MyComponent extends React.Component {
       text: "Hello"
     };
     // Change code below this line
-    this.handleClick = this.handleClick.bind(this);
+
     // Change code above this line
   }
   handleClick() {
@@ -754,7 +750,7 @@ class MyComponent extends React.Component {
     return (
       <div>
         { /* Change code below this line */ }
-        <button onClick={this.handleClick}>Click Me</button>
+        
         { /* Change code above this line */ }
         <h1>{this.state.text}</h1>
       </div>
@@ -796,20 +792,11 @@ class MyComponent extends React.Component {
       visibility: false
     };
     // Change code below this line
-    this.toggleVisibility = this.toggleVisibility.bind(this)
+
     // Change code above this line
   }
   // Change code below this line
-toggleVisibility() {
-  this.setState(state => {
-    // handles the toggle 
-    if (state.visibility === true){
-      return { visibility: false};
-    } else{
-      return {visibility: true};
-    }
-  })
-}
+
   // Change code above this line
   render() {
     if (this.state.visibility) {
@@ -842,28 +829,11 @@ class Counter extends React.Component {
       count: 0
     };
     // Change code below this line
-    this.increment = this.increment.bind(this);
-    this.decrement = this.decrement.bind(this);
-    this.reset     = this.reset.bind(this);
+
     // Change code above this line
   }
   // Change code below this line
-reset(){
-  this.setState({
-    count: 0
-  });
-}
-increment(){
-  this.setState(
-    state => ({
-      count: state.count + 1
-    }));
-}
-decrement(){
-  this.setState(state => ({
-    count: state.count - 1 
-  }));
-}
+
   // Change code above this line
   render() {
     return (
@@ -896,19 +866,17 @@ class ControlledInput extends React.Component {
       input: ''
     };
     // Change code below this line
-    this.handleChange = this.handleChange.bind(this);
+    
     // Change code above this line
   }
   // Change code below this line
-handleChange(event){
-  this.setState({input: event.target.value });
-}
+
   // Change code above this line
   render() {
     return (
       <div>
         { /* Change code below this line */}
-        <input type="text" value={this.state.input} onChange={this.handleChange.bind(this)}/>
+        
         { /* Change code above this line */}
         <h4>Controlled Input:</h4>
         <p>{this.state.input}</p>
@@ -944,10 +912,7 @@ class MyForm extends React.Component {
   }
   handleSubmit(event) {
     // Change code below this line
-    event.preventDefault();
-    this.setState({
-      submit: this.state.input
-    })
+
     // Change code above this line
   }
   render() {
@@ -955,12 +920,12 @@ class MyForm extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           {/* Change code below this line */}
-          <input type="text" value={this.state.input} onChange={this.handleChange}/>
+          
           {/* Change code above this line */}
           <button type='submit'>Submit!</button>
         </form>
         {/* Change code below this line */}
-        <h1>{this.state.submit}</h1>
+        
         {/* Change code above this line */}
       </div>
     );
@@ -986,7 +951,7 @@ class MyApp extends React.Component {
     return (
        <div>
          {/* Change code below this line */}
-         <Navbar name={this.state.name}/>
+
          {/* Change code above this line */}
        </div>
     );
@@ -1001,7 +966,7 @@ class Navbar extends React.Component {
     return (
     <div>
       {/* Change code below this line */}
-      <h1>Hello, my name is: {this.props.name}</h1>
+
       {/* Change code above this line */}
     </div>
     );
@@ -1033,8 +998,7 @@ class MyApp extends React.Component {
     return (
        <div>
         { /* Change code below this line */ }
-        <GetInput input={this.state.inputValue} handleChange={this.handleChange}/>
-        <RenderInput input={this.state.inputValue}/>
+
         { /* Change code above this line */ }
        </div>
     );
@@ -1084,7 +1048,7 @@ class MyComponent extends React.Component {
   }
   componentWillMount() {
     // Change code below this line
-    console.log("Component being mounted");
+
     // Change code above this line
   }
   render() {
@@ -1116,7 +1080,7 @@ class MyComponent extends React.Component {
     return (
       <div>
         {/* Change code below this line */}
-        <h1>Active Users:{this.state.activeUsers} </h1>
+
         {/* Change code above this line */}
       </div>
     );
@@ -1142,13 +1106,7 @@ class MyComponent extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
   // Change code below this line
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyPress);
-  }
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyPress);
 
-  }
   // Change code above this line
   handleEnter() {
     this.setState((state) => ({
@@ -1182,9 +1140,7 @@ class OnlyEvens extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     console.log('Should I update?');
     // Change code below this line
-    if(nextProps.value % 2 === 0){
-      return true;
-    }
+
     // Change code above this line
   }
   componentDidUpdate() {
